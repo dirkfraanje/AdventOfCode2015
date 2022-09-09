@@ -10,12 +10,13 @@ namespace AdventOfCode2015
     {
         static List<Wire> wires = new List<Wire>();
         static List<Instruction> instructions = new List<Instruction>();
-        public static object Result1()
+        public static object Result1(bool skipParse)
         {
-            ParseInput();
+            if (!skipParse)
+                ParseInput();
             while (true)
             {
-                var wiresReady = wires.Where(x=>x.HasBeenSet).ToArray();
+                var wiresReady = wires.Where(x => x.HasBeenSet).ToArray();
                 foreach (var wire in wiresReady)
                 {
                     var wiresWitLeftValuesUsingWire = instructions.Where(x => x.LeftValue == wire);
@@ -32,22 +33,32 @@ namespace AdventOfCode2015
 
                 var inputReadyInstructions = instructions.Where(x => int.TryParse($"{x.LeftValue}", out int result) && (x.RightValue == null || int.TryParse($"{x.RightValue}", out int result2)));
                 if (!inputReadyInstructions.Any())
-                    return wires.First(x=>x.Identifier == "a").Signal;
+                    return wires.First(x => x.Identifier == "a").Signal;
                 foreach (var instruction in inputReadyInstructions.ToArray())
                 {
                     instruction.Execute();
                     instructions.Remove(instruction);
                 }
-               
+
             }
             return null;
+        }
+
+        public static object Result2()
+        {
+            var wireASignal = wires.First(x => x.Identifier == "a").Signal;
+            wires = new List<Wire>();
+            instructions = new List<Instruction>();
+            ParseInput();
+            var wireB = wires.First(x => x.Identifier == "b").Signal = wireASignal;
+            return Result1(true);
         }
 
         private static void ParseInput()
         {
             foreach (var item in System.IO.File.ReadAllLines("DayInputs/day7.txt"))
             {
-                var splittedInstruction = item.Split("->",StringSplitOptions.TrimEntries);
+                var splittedInstruction = item.Split("->", StringSplitOptions.TrimEntries);
                 wires.Add(new Wire() { Identifier = splittedInstruction.Last() });
                 instructions.Add(new Instruction(wires, splittedInstruction));
             }

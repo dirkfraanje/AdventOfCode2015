@@ -63,7 +63,6 @@ namespace AdventOfCode2015
                 default:
                     break;
             }
-            TargetWire.HasBeenSet = true;
         }
 
         private object SetValue(string value)
