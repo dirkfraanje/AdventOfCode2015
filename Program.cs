@@ -21,5 +21,6 @@ Console.WriteLine();
 Console.WriteLine($"Result Day 5, part 2: {Day5.Result2()}");
 Console.WriteLine();
 var day6 = new Day6();
-Console.WriteLine($"Result Day 6, part 1: {day6.Result1()}");
-Console.WriteLine($"Result Day 6, part 2: {day6.Result2()}");
+//Console.WriteLine($"Result Day 6, part 1: {day6.Result1()}");
+//Console.WriteLine($"Result Day 6, part 2: {day6.Result2()}");
+Console.WriteLine($"Result Day 7, part 1: {Day7.Result1()}");
