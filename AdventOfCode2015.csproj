@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Day 8 - Matchsticks\" />
+    <Folder Include="Day 08 - Matchsticks\" />
   </ItemGroup>
 
 </Project>

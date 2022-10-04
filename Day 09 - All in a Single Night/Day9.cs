@@ -16,7 +16,6 @@ namespace AdventOfCode2015
             ParseInput();
             var totalDistance = 0;
             var orderRoutes = routes.OrderBy(x => x.Distance).ToList();
-            var locationSequence = new List<Location>();
             foreach (var location in locations)
             {
                 shortesCombinations.AddRange(orderRoutes.Where(x => x.Location1 == location || x.Location2 == location).Take(2));
@@ -32,7 +31,7 @@ namespace AdventOfCode2015
             {
                 var nextCombinations = shortesCombinations.Where(x => x.Location1 == nextLocation || x.Location2 == nextLocation).OrderBy(r => r.Distance).ToArray();
                 var next = nextCombinations.First();
-                Console.WriteLine($"{next.Location1.Name} to {next.Location2.Name} = {next.Distance}");
+                //Console.WriteLine($"{next.Location1.Name} to {next.Location2.Name} = {next.Distance}");
                 totalDistance += next.Distance;
                 nextLocation = next.Location1 == nextLocation ? next.Location2 : next.Location1;
                 foreach (var item in nextCombinations.ToArray())
@@ -40,7 +39,38 @@ namespace AdventOfCode2015
                     shortesCombinations.Remove(item);
                 }
             }
-            
+
+            return totalDistance;
+        }
+
+        public static object Result2()
+        {
+            var totalDistance = 0;
+            var orderRoutes = routes.OrderByDescending(x => x.Distance).ToList();
+            var locationsUsed = new List<Location>();
+            //To start use the top 2
+            totalDistance += orderRoutes[0].Distance;
+            totalDistance += orderRoutes[1].Distance;
+            locationsUsed.Add(orderRoutes[0].Location1);
+            locationsUsed.Add(orderRoutes[0].Location2);
+            locationsUsed.Add(orderRoutes[1].Location1);
+            locationsUsed.Add(orderRoutes[1].Location2);
+            orderRoutes.Remove(orderRoutes[0]);
+            orderRoutes.Remove(orderRoutes[0]);
+            while (locationsUsed.Count < 17)
+            {
+                if (locationsUsed.Count(x => x == orderRoutes[0].Location1) == 2 || locationsUsed.Count(x => x == orderRoutes[0].Location2) == 2)
+                {
+                    orderRoutes.Remove(orderRoutes[0]);
+                    continue;
+                }
+                totalDistance += orderRoutes[0].Distance;
+                locationsUsed.Add(orderRoutes[0].Location1);
+                locationsUsed.Add(orderRoutes[0].Location2);
+                orderRoutes.Remove(orderRoutes[0]);
+                if (ListContainsOtherList<Location>.ContainsAll(locations, locationsUsed))
+                    break;
+            }
             return totalDistance;
         }
 
@@ -64,6 +94,14 @@ namespace AdventOfCode2015
         public Location(string name)
         {
             Name = name.Trim();
+        }
+    }
+
+    class ListContainsOtherList<T>
+    {
+        public static bool ContainsAll(List<T> first, List<T> second)
+        {
+            return !first.Except(second).Any();
         }
     }
 }
