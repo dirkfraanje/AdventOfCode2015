@@ -11,11 +11,18 @@ namespace AdventOfCode2015
         public static object Result1()
         {
             var number = $"{1113122113}";
-            Console.WriteLine(number);
-            for (int i = 0; i < 7; i++)
+            //Console.WriteLine(number.Length);
+            for (int i = 0; i < 15; i++)
             {
+                var sum = 0;
+                foreach (var item in number)
+                {
+                    sum += int.Parse($"{item}");
+                }
+                Console.WriteLine(sum);
                 number = CalculateNext($"{number}");
-                Console.WriteLine(number);
+                //Console.WriteLine(number);
+              
             }
             return number.Length;
         }

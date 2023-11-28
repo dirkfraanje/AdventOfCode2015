@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2015;
+using AdventOfCode2015.Day_08___Matchsticks;
 
 Console.WriteLine($"Result Day 1, part 1: {Day1.Result1()}");
 Console.WriteLine();
@@ -26,7 +27,11 @@ var day6 = new Day6();
 Console.WriteLine($"Result Day 7, part 1: {Day7.Result1(false)}");
 Console.WriteLine($"Result Day 7, part 1: {Day7.Result2()}");
 Console.WriteLine();
+Console.WriteLine($"Result Day 8, part 1: {Day8.Result1()}");
+Console.WriteLine();
 Console.WriteLine($"Result Day 9, part 1: {Day9.Result1()}");
 Console.WriteLine($"Result Day 9, part 2: {Day9.Result2()}");
 Console.WriteLine();
-//Console.WriteLine($"Result Day 10, part 1: {Day10.Result1()}");
+Console.WriteLine($"Result Day 10, part 1: {Day10.Result1()}");
+Console.WriteLine();
+Console.WriteLine();
